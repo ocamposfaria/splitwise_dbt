@@ -18,7 +18,6 @@ Para executar este projeto, verifique se você possui os seguintes itens instala
 ## Estrutura do Projeto
 A estrutura do projeto segue as convenções padrão do dbt:
 
-- /logs: Contém os logs gerados nas execuções do modelo.
 - /splitwise/models: Contém os modelos dbt implementados em arquivos SQL. Cada modelo representa uma transformação ou agregação de dados específica.
 - /splitwise/macros: Inclui macros personalizados usados no projeto. Macros são trechos de código reutilizáveis que melhoram as capacidades do dbt (vazio para este projeto).
 - /splitwise/data: Opcionalmente, você pode incluir arquivos de dados de exemplo ou scripts SQL usados para testes ou desenvolvimento (vazio para este projeto).
