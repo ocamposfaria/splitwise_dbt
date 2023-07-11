@@ -144,4 +144,4 @@ SELECT
     earnings_final.percentage_juau AS percentage_juau,
     earnings_final.percentage_lana AS percentage_lana
 FROM
-    bob.earnings_final
+    {{ref('earnings_final')}}
