@@ -110,7 +110,7 @@ FROM
                 ELSE s.repayments
             END) AS cost_lana,
             IF(((s.details IS NOT NULL)
-                AND (s.details <> 'None')), s.details, s.month) AS month,
+                AND (s.details <> 'None')), substring(s.details, 1, 7), s.month) AS month,
             s.created_at AS created_at,
             s.updated_at AS updated_at,
             s.created_by AS created_by,
