@@ -1,6 +1,11 @@
 {{ config(materialized='view') }}
 
-SELECT '2023-01' AS `month` 
+SELECT '2022-08' AS `month` 
+UNION ALL SELECT '2022-09' AS `month` 
+UNION ALL SELECT '2022-10' AS `month` 
+UNION ALL SELECT '2022-11' AS `month` 
+UNION ALL SELECT '2022-12' AS `month` 
+UNION ALL SELECT '2023-01' AS `month` 
 UNION ALL SELECT '2023-02' AS `month` 
 UNION ALL SELECT '2023-03' AS `month` 
 UNION ALL SELECT '2023-04' AS `month` 
