@@ -2,8 +2,8 @@
 
 SELECT 
     `sel`.`expense_id` AS `expense_id`,
-    `sel`.`category` AS `category`,
-    `sel`.`name` AS `name`,
+    trim(`sel`.`category`) AS `category`,
+    trim(`sel`.`name`) AS `name`,
     `sel`.`cost` AS `cost`,
     `sel`.`cost_juau` AS `cost_juau`,
     `sel`.`cost_lana` AS `cost_lana`,
@@ -11,7 +11,7 @@ SELECT
     `sel`.`created_at` AS `created_at`,
     `sel`.`updated_at` AS `updated_at`,
     `sel`.`created_by` AS `created_by`,
-    `sel`.`source` AS `source`,
+    trim(`sel`.`source`) AS `source`,
     ((`sel`.`cost_juau` / (`sel`.`cost_juau` + `sel`.`cost_lana`)) * 100) AS `percentage_juau`,
     ((`sel`.`cost_lana` / (`sel`.`cost_juau` + `sel`.`cost_lana`)) * 100) AS `percentage_lana`
 FROM
