@@ -25,7 +25,7 @@ FROM
         OR (`overall_costs`.`category` = 'feira')), 'conveniencia', `overall_costs`.`category`) UNION ALL SELECT 
         'nossa residência' AS `group`,
             'ganhos' AS category,
-            -(3900) AS cost_juau,
+            -(4064.77) AS cost_juau,
             -(3495) AS cost_lana
         UNION ALL SELECT 
         'nossa residência' AS `group`,
@@ -49,3 +49,4 @@ FROM
     bob.future_expenses
 WHERE
     (future_expenses.group = 'viagens')
+    and future_expenses.month >= substring(curdate(), 1, 7)

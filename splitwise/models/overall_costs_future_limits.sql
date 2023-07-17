@@ -22,7 +22,7 @@ FROM
             AND (limits_final.category NOT IN ('apenas joão' , 'apenas lana'))) UNION ALL SELECT 
         'nossa residência' AS `group`,
             'ganhos' AS category,
-            -(3900) AS cost_juau,
+            -(4064.77) AS cost_juau,
             -(3495) AS cost_lana
         UNION ALL SELECT 
         'nossa residência' AS `group`,
@@ -43,7 +43,8 @@ UNION ALL SELECT
     future_expenses.cost_juau AS cost_juau,
     future_expenses.cost_lana AS cost_lana
 FROM
-    bob.future_expenses 
+    bob.future_expenses
+WHERE future_expenses.month >= substring(curdate(), 1, 7)
 UNION ALL SELECT 
     overall_costs.month AS month,
     overall_costs.group AS `group`,
