@@ -6,12 +6,12 @@ SELECT
 	(CASE
 		WHEN (`splitwise_final`.`source` = 'VR') THEN 'monthly costs'
 		WHEN
-			((`splitwise_final`.`source` IN ('just me' , 'Nossa Residência'))
+			((`splitwise_final`.`source` IN ('just me' , 'Nossa Residencia'))
 				AND (splitwise_final.category <> 'compras'))
 		THEN
 			'monthly costs'
 		WHEN
-			((splitwise_final.source IN ('just me' , 'Nossa Residência'))
+			((splitwise_final.source IN ('just me' , 'Nossa Residencia'))
 				AND (splitwise_final.category = 'compras'))
 		THEN
 			'compras'
@@ -27,12 +27,12 @@ WHERE
 GROUP BY splitwise_final.month , splitwise_final.name , (CASE
 	WHEN (splitwise_final.source = 'VR') THEN 'monthly costs'
 	WHEN
-		((splitwise_final.source IN ('just me' , 'Nossa Residência'))
+		((splitwise_final.source IN ('just me' , 'Nossa Residencia'))
 			AND (splitwise_final.category <> 'compras'))
 	THEN
 		'monthly costs'
 	WHEN
-		((splitwise_final.source IN ('just me' , 'Nossa Residência'))
+		((splitwise_final.source IN ('just me' , 'Nossa Residencia'))
 			AND (splitwise_final.category = 'compras'))
 	THEN
 		'compras'
@@ -44,12 +44,12 @@ UNION ALL SELECT
 	(CASE
 		WHEN (splitwise_final.source = 'VR') THEN 'monthly costs'
 		WHEN
-			((splitwise_final.source IN ('apenas lana' , 'Nossa Residência'))
+			((splitwise_final.source IN ('apenas lana' , 'Nossa Residencia'))
 				AND (splitwise_final.category <> 'compras'))
 		THEN
 			'monthly costs'
 		WHEN
-			((splitwise_final.source IN ('apenas lana' , 'Nossa Residência'))
+			((splitwise_final.source IN ('apenas lana' , 'Nossa Residencia'))
 				AND (splitwise_final.category = 'compras'))
 		THEN
 			'compras'
@@ -65,12 +65,12 @@ WHERE
 GROUP BY splitwise_final.month , splitwise_final.name , (CASE
 	WHEN (splitwise_final.source = 'VR') THEN 'monthly costs'
 	WHEN
-		((splitwise_final.source IN ('apenas lana' , 'Nossa Residência'))
+		((splitwise_final.source IN ('apenas lana' , 'Nossa Residencia'))
 			AND (splitwise_final.category <> 'compras'))
 	THEN
 		'monthly costs'
 	WHEN
-		((splitwise_final.source IN ('apenas lana' , 'Nossa Residência'))
+		((splitwise_final.source IN ('apenas lana' , 'Nossa Residencia'))
 			AND (splitwise_final.category = 'compras'))
 	THEN
 		'compras'

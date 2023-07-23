@@ -58,4 +58,4 @@ FROM
     {{ref('overall_costs')}}
 WHERE
     ((CAST(CONCAT(overall_costs.month, '-01') AS DATE) >= CURDATE())
-        AND (overall_costs.group <> 'nossa residência'))
+        AND (overall_costs.group <> 'nossa residencia'))

@@ -9,7 +9,7 @@ SELECT
 FROM
     {{ref('splitwise_final')}}
 WHERE
-    ((splitwise_final.source IN ('Nossa Residência' , 'VR', 'just me', 'apenas lana'))
+    ((splitwise_final.source IN ('Nossa Residencia' , 'VR', 'just me', 'apenas lana'))
         AND (splitwise_final.category IN ('contas' , 'mercado',
         'outros',
         'transporte',
@@ -17,10 +17,10 @@ WHERE
         'feira',
         'padaria',
         'assinaturas',
-        'conveniência',
+        'conveniencia',
         'ganhos',
         'ganhos extra')))
-GROUP BY splitwise_final.month , 'nossa residência' , splitwise_final.category 
+GROUP BY 1, 2, 3 
 UNION ALL SELECT 
     splitwise_final.month AS month,
     'compras' AS `group`,
@@ -30,7 +30,7 @@ UNION ALL SELECT
 FROM
     {{ref('splitwise_final')}}
 WHERE
-    ((splitwise_final.source IN ('Nossa Residência' , 'VR', 'just me', 'apenas lana'))
+    ((splitwise_final.source IN ('Nossa Residencia' , 'VR', 'just me', 'apenas lana'))
         AND (splitwise_final.category = 'compras'))
 GROUP BY splitwise_final.month , 'compras' , splitwise_final.category 
 UNION ALL SELECT 
@@ -42,7 +42,7 @@ UNION ALL SELECT
 FROM
     {{ref('splitwise_final')}}
 WHERE
-    ((splitwise_final.source NOT IN ('Nossa Residência' , 'VR', 'just me', 'apenas lana'))
+    ((splitwise_final.source NOT IN ('Nossa Residencia' , 'VR', 'just me', 'apenas lana'))
         AND (splitwise_final.source <> 'Black Mobly'))
 GROUP BY splitwise_final.month , 'viagens' , splitwise_final.source 
 UNION ALL SELECT 
@@ -54,7 +54,7 @@ UNION ALL SELECT
 FROM
     {{ref('splitwise_final')}}
 WHERE
-    ((splitwise_final.source IN ('Nossa Residência' , 'VR', 'just me', 'apenas lana'))
+    ((splitwise_final.source IN ('Nossa Residencia' , 'VR', 'just me', 'apenas lana'))
         AND (splitwise_final.category = 'apenas joão'))
 GROUP BY splitwise_final.month , 'apenas joão' , splitwise_final.category 
 UNION ALL SELECT 
@@ -66,7 +66,7 @@ UNION ALL SELECT
 FROM
     {{ref('splitwise_final')}}
 WHERE
-    ((splitwise_final.source IN ('Nossa Residência' , 'VR', 'just me', 'apenas lana'))
+    ((splitwise_final.source IN ('Nossa Residencia' , 'VR', 'just me', 'apenas lana'))
         AND (splitwise_final.category = 'apenas lana'))
 GROUP BY splitwise_final.month , 'apenas lana' , splitwise_final.category
 ORDER BY month DESC
