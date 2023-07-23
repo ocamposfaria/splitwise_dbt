@@ -125,6 +125,7 @@ FROM
             AND (s.month <> 'old')
             AND (s.expense_id NOT IN ('1982325837' , '2374550198', '2374528360', '2420271153', '2420307343'))
             AND (s.category NOT IN ('ganhos' , 'ganhos extra')))
+    HAVING name NOT LIKE '%FILTRAR'
     ORDER BY s.expense_id DESC) sel 
 
 UNION ALL 
