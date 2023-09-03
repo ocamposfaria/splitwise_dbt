@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 from splitwise import Splitwise
 from splitwise.expense import Expense, ExpenseUser
 import pandas as pd
@@ -11,14 +8,8 @@ from pprint import pprint
 import yaml
 
 
-# In[2]:
-
-
-with open('keys.yaml', 'r') as file:
+with open(r'C:\Users\ocamp\Desktop\splitwise_dbt\splitwise\analyses\secrets\keys.yaml', 'r') as file:
     keys = yaml.safe_load(file)
-
-
-# In[3]:
 
 
 s = Splitwise(consumer_key=keys['consumer_key'],
@@ -26,9 +17,6 @@ s = Splitwise(consumer_key=keys['consumer_key'],
               api_key=keys['api_key'])
 
 u = s.getCurrentUser()
-
-
-# In[4]:
 
 
 def recreate_expenses_with_new_percentage(list_of_expenses, percentage_juau, percentage_lana, ano_mes, delete):
@@ -89,13 +77,9 @@ def recreate_expenses_with_new_percentage(list_of_expenses, percentage_juau, per
             raise Exception(e)
 
 
-# In[6]:
-
-
 recreate_expenses_with_new_percentage(
-    list_of_expenses = [2193180534, 2316633994, 2374542938, 2388775313, 2388938649, 2388783775, 2390250935, 2420230197, 2420225057, 2420279846, 2420268659, 2420234090, 2420230912, 2420274320, 2420223901, 2420278625, 2420244906, 2423706548, 2423707314, 2423690668, 2423696754, 2423706753, 2423695738, 2423693611, 2423700341, 2423700606, 2423691268, 2423695378, 2423700119, 2423703200, 2423704867, 2423703716, 2423691723, 2423703454, 2423691980, 2423692282, 2423693994, 2423696060, 2439475988, 2439473888, 2439470769, 2439471618, 2439466555, 2439470316, 2439468213, 2439474441, 2441671456, 2441664339, 2441663375, 2441663783, 2441671055, 2441671982, 2465284281, 2465289869, 2465383864, 2465377245, 2465272943, 2465283053, 2465287404, 2465302210, 2465288240, 2465289030, 2465303848, 2465303344, 2465311463], 
+    list_of_expenses = [], 
     percentage_juau = 0.5463, 
     percentage_lana = 0.4537, 
-    ano_mes = '2023-06', 
+    ano_mes = '2023-08', 
     delete = True)
-

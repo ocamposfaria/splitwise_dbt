@@ -3,17 +3,11 @@
 
 # ### Imports, mySQL connection and API tokens
 
-# In[3]:
-
-
 from splitwise import Splitwise
 import pandas as pd
 import mysql.connector
 from mysql.connector import Error
 import yaml
-
-
-# In[4]:
 
 
 # old aws
@@ -41,14 +35,8 @@ else:
     print("Error, not conected")
 
 
-# In[5]:
-
-
-with open('keys.yaml', 'r') as file:
+with open(r'C:\Users\ocamp\Desktop\splitwise_dbt\splitwise\analyses\secrets\keys.yaml', 'r') as file:
     keys = yaml.safe_load(file)
-
-
-# In[ ]:
 
 
 s = Splitwise(consumer_key=keys['consumer_key'],
@@ -60,9 +48,6 @@ u = s.getCurrentUser()
 
 # ### Get Splitwise expenses
 
-# In[ ]:
-
-
 # uncomment to access groups' IDs
 df = []
 for group in s.getGroups():
@@ -73,9 +58,6 @@ for group in s.getGroups():
     df.append(df_d)
 df = pd.DataFrame(df)
 df
-
-
-# In[ ]:
 
 
 def get_splitwise_expenses(group_id, group_name, limit):
@@ -138,9 +120,6 @@ def get_splitwise_expenses(group_id, group_name, limit):
     return df
 
 
-# In[ ]:
-
-
 df_1 = get_splitwise_expenses(33823062, 'Nossa Residência', 500)
 df_2 = get_splitwise_expenses(34137144, 'VR', 20)
 df_3 = get_splitwise_expenses(35336773, 'just me', 20)
@@ -154,27 +133,14 @@ df_4 = get_splitwise_expenses(40055224, 'apenas lana', 20)
 
 df = pd.concat([df_1, df_2, df_3, df_4], ignore_index=True)
 
-
-# In[ ]:
-
-
-df
-
-
 # ### Getting month
 
-# In[ ]:
-
-
-with open('month.txt') as f:
+with open(r'C:\Users\ocamp\Desktop\splitwise_dbt\splitwise\analyses\month.txt') as f:
     lines = f.readlines()
 month = lines[0].replace('\n', '')
 
 
-# ### Insert update
-
-# In[ ]:
-
+# update
 
 try:
     cursor = mydb.cursor()
@@ -249,4 +215,3 @@ except Exception as e:
     print(query)
     print(e)
     cursor.close()
-

@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 # Configurar as credenciais da conta de serviço
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name('sinuous-concept-307423-8a768181a3c5.json', scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\ocamp\Desktop\splitwise_dbt\splitwise\analyses\secrets\sinuous-concept-307423-38657574a1a5.json', scope)
 
 # Autenticar e abrir a planilha
 client = gspread.authorize(credentials)
@@ -26,21 +23,12 @@ dados = guia.get_all_values()
 df = pd.DataFrame(dados[1:], columns=dados[0])
 
 
-# In[2]:
-
-
 df = df.apply(lambda x: x.str.replace(',','.'))
 df
 
 
-# In[3]:
-
-
 import mysql.connector
 from mysql.connector import Error
-
-
-# In[4]:
 
 
 # old aws
@@ -68,9 +56,6 @@ else:
     print("Error, not conected")
 
 
-# In[5]:
-
-
 try:
     cursor = mydb.cursor()
 
@@ -86,9 +71,6 @@ except Exception as e:
     print(query)
     print(e)
     cursor.close()
-
-
-# In[6]:
 
 
 try:
@@ -121,4 +103,3 @@ except Exception as e:
     print(query)
     print(e)
     cursor.close()
-

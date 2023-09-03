@@ -3,8 +3,6 @@
 
 # ## Imports
 
-# In[1]:
-
 
 import pandas as pd
 from splitwise import Splitwise
@@ -14,8 +12,6 @@ from mysql.connector import Error
 
 
 # ## User inputs
-
-# In[2]:
 
 
 # ---- 2023-03 ----
@@ -52,13 +48,9 @@ from mysql.connector import Error
 
 # ## Percentages
 
-# In[3]:
-
 
 # renda_total_sem_VR = salario_lana + salario_juau + PA_juau
 
-
-# In[4]:
 
 
 # percentual_juau = (salario_juau + PA_juau)/renda_total_sem_VR
@@ -66,8 +58,6 @@ from mysql.connector import Error
 
 # mudar padrão no app do splitwise (não funciona no navegador)
 
-
-# In[5]:
 
 
 percentual_juau =  0.5377202119059684
@@ -77,21 +67,15 @@ VR_juau = 0
 VR_lana = 0
 
 
-# In[6]:
-
 
 print(percentual_juau*100)
 
-
-# In[7]:
 
 
 print(percentual_lana*100)
 
 
 # ## Categories
-
-# In[8]:
 
 
 # df = {
@@ -100,8 +84,6 @@ print(percentual_lana*100)
 # }
 
 
-# In[9]:
-
 
 df = {
     'category': ['contas',          'mercado', 'conveniência', 'alimentação', 'assinaturas', 'outros', 'transporte', 'apenas joão', 'apenas lana'],
@@ -109,19 +91,13 @@ df = {
 }
 
 
-# In[10]:
-
 
 df = pd.DataFrame(df)
 
 
-# In[11]:
-
 
 df
 
-
-# In[12]:
 
 
 def cost_juau(row, percentual_juau, VR_juau, VR_lana):
@@ -136,8 +112,6 @@ def cost_juau(row, percentual_juau, VR_juau, VR_lana):
 
 df['cost_juau'] = df.apply(cost_juau, percentual_juau=percentual_juau, VR_juau=VR_juau, VR_lana=VR_lana, axis=1)
 
-
-# In[13]:
 
 
 def cost_lana(row, percentual_lana, VR_juau, VR_lana):
@@ -154,8 +128,6 @@ df['cost_lana'] = df.apply(cost_lana, percentual_lana=percentual_lana, VR_juau=V
 
 
 # ## Sending Data
-
-# In[14]:
 
 
 # old aws
@@ -183,8 +155,6 @@ else:
     print("Error, not conected")
 
 
-# In[15]:
-
 
 with open('month.txt') as f:
     lines = f.readlines()
@@ -192,8 +162,6 @@ month = lines[0].replace('\n', '')
 df['month'] = month
 df
 
-
-# In[16]:
 
 
 for i in range(df.shape[0]):
@@ -233,4 +201,3 @@ for i in range(df.shape[0]):
     except Exception as e:
         print(query)
         print(e)
-
