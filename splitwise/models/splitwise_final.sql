@@ -13,7 +13,9 @@ SELECT
     `sel`.`created_by` AS `created_by`,
     trim(`sel`.`source`) AS `source`,
     ((`sel`.`cost_juau` / (`sel`.`cost_juau` + `sel`.`cost_lana`)) * 100) AS `percentage_juau`,
-    ((`sel`.`cost_lana` / (`sel`.`cost_juau` + `sel`.`cost_lana`)) * 100) AS `percentage_lana`
+    ((`sel`.`cost_lana` / (`sel`.`cost_juau` + `sel`.`cost_lana`)) * 100) AS `percentage_lana`,
+    repayments_from,
+    repayments_to
 FROM
     (SELECT 
         `s`.`expense_id` AS `expense_id`,
@@ -114,7 +116,9 @@ FROM
             s.created_at AS created_at,
             s.updated_at AS updated_at,
             s.created_by AS created_by,
-            s.source AS source
+            s.source AS source,
+            s.repayments_from,
+            s.repayments_to
     FROM
         bob.splitwise s
     WHERE
@@ -143,6 +147,8 @@ SELECT
     earnings_final.created_by AS created_by,
     earnings_final.source AS source,
     earnings_final.percentage_juau AS percentage_juau,
-    earnings_final.percentage_lana AS percentage_lana
+    earnings_final.percentage_lana AS percentage_lana,
+    null as repayments_from,
+    null as repayments_to
 FROM
     {{ref('earnings_final')}}
