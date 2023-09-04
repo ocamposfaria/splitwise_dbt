@@ -14,8 +14,8 @@ SELECT
     trim(`sel`.`source`) AS `source`,
     ((`sel`.`cost_juau` / (`sel`.`cost_juau` + `sel`.`cost_lana`)) * 100) AS `percentage_juau`,
     ((`sel`.`cost_lana` / (`sel`.`cost_juau` + `sel`.`cost_lana`)) * 100) AS `percentage_lana`,
-    repayments_from,
-    repayments_to
+    if(repayments_from = 'None', null, repayments_from) as repayments_from,
+    if(repayments_to = 'None', null, repayments_to) as repayments_to
 FROM
     (SELECT 
         `s`.`expense_id` AS `expense_id`,
