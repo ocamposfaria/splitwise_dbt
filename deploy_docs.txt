@@ -1,0 +1,8 @@
+git checkout --orphan docs
+cd .\splitwise\
+dbt docs generate
+cd ..
+git add -f splitwise/target
+git commit -m 'upload docs' splitwise/target
+git subtree push --prefix splitwise/target origin docs
+git checkout main
