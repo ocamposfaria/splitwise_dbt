@@ -1,12 +1,12 @@
 {{ config(materialized='view') }}
 
 SELECT 
-	month, count(`name`)
+	month, count(`name`), group_concat(' ', `name` ORDER BY `name` ASC)
 FROM
 	(SELECT 
 		month, `name`
 	FROM
-	    {{ref('splitwise_final')}}
+		{{ref('splitwise_final')}}
 	WHERE 1=1 and source = 'Nossa Residencia' and
 		(
 			trim(`name`) = 'aluguel' 
@@ -20,7 +20,6 @@ FROM
 			or trim(`name`) = 'gas' 
 			or trim(`name`) = 'seguro incendio'
 		)
-        
         ) sq
 GROUP BY 1
 ORDER BY 1 DESC 
