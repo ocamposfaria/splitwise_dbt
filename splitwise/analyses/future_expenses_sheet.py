@@ -60,7 +60,7 @@ try:
     cursor = mydb.cursor()
 
     query = f"""
-            TRUNCATE TABLE bob.future_expenses         
+            TRUNCATE TABLE bob.future_expenses_sheet         
             """
         
     cursor.execute(query)
@@ -78,7 +78,7 @@ try:
 
     for i in range(df.shape[0]):
         query = f"""
-                INSERT INTO future_expenses (
+                INSERT INTO future_expenses_sheet (
                 `month`,
                 `group`,
                 `category`,

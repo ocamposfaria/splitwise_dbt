@@ -24,4 +24,4 @@ SELECT
         ELSE 0
     END) AS percentage_lana
 FROM
-    bob.earnings
+    bob.earnings_sheet

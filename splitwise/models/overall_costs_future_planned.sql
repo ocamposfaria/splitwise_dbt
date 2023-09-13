@@ -46,7 +46,7 @@ UNION ALL SELECT
     future_expenses.cost_juau AS cost_juau,
     future_expenses.cost_lana AS cost_lana
 FROM
-    bob.future_expenses
+    bob.future_expenses_sheet
 WHERE future_expenses.month >= substring(curdate(), 1, 7)
 UNION ALL SELECT 
     overall_costs.month AS month,
