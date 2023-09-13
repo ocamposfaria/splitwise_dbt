@@ -10,17 +10,6 @@ from mysql.connector import Error
 import yaml
 
 
-# old aws
-# mydb = mysql.connector.connect(host= 'accountingbob.cs8refzom5ab.us-east-1.rds.amazonaws.com',
-#                                      database='bob',
-#                                      user='admin',
-# password='oldnumber7')
-
-# new azure
-# mydb = mysql.connector.connect(host= 'nossa-residencia-mysql-azure-server.mysql.database.azure.com',
-#                                      database='bob',
-#                                      user='ocamposfaria',
-#                                      password='oldnumber7.Tennessee')
 
 # localhost
 mydb = mysql.connector.connect(host= '127.0.0.1',
