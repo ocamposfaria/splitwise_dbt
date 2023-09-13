@@ -7,14 +7,14 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # Configurar as credenciais da conta de serviço
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\ocamp\Desktop\splitwise_dbt\splitwise\analyses\secrets\sinuous-concept-307423-38657574a1a5.json', scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\ocamp\Desktop\splitwise_dbt\splitwise\analyses\secrets\sinuous-concept-307423-6ac5f41270e9.json', scope)
 
 # Autenticar e abrir a planilha
 client = gspread.authorize(credentials)
-planilha = client.open('Gastos futuros')
+planilha = client.open('Suporte p orçamento')
 
 # Selecionar a primeira guia da planilha
-guia = planilha.get_worksheet(0)
+guia = planilha.worksheet('Gastos futuros')
 
 # Obter todos os valores da guia
 dados = guia.get_all_values()
@@ -24,8 +24,9 @@ df = pd.DataFrame(dados[1:], columns=dados[0])
 
 
 df = df.apply(lambda x: x.str.replace(',','.'))
-df
 
+with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+    print(df)
 
 import mysql.connector
 from mysql.connector import Error
