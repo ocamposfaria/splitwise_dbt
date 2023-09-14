@@ -11,10 +11,10 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\ocamp\
 
 # Autenticar e abrir a planilha
 client = gspread.authorize(credentials)
-planilha = client.open('Ganhos')
+planilha = client.open('Suporte p orçamento')
 
 # Selecionar a primeira guia da planilha
-guia = planilha.get_worksheet(0)
+guia = planilha.worksheet('Ganhos')
 
 # Obter todos os valores da guia
 dados = guia.get_all_values()
