@@ -2,7 +2,12 @@
 
 SELECT 
     `sel`.`expense_id` AS `expense_id`,
-    trim(`sel`.`category`) AS `category`,
+    substring_index((`sel`.`category`), ' -', 1) AS `category`,
+    if(
+		substring_index((`sel`.`category`), '- ', -1) = substring_index((`sel`.`category`), ' -', 1), 
+		null, 
+        substring_index((`sel`.`category`), '- ', -1)
+	) AS `subcategory`,
     trim(`sel`.`name`) AS `name`,
     `sel`.`cost` AS `cost`,
     `sel`.`cost_juau` AS `cost_juau`,
@@ -137,6 +142,7 @@ UNION ALL
 SELECT 
     earnings_final.expense_id AS expense_id,
     earnings_final.category AS category,
+    null as subcategory,
     earnings_final.name AS name,
     earnings_final.cost AS cost,
     earnings_final.cost_juau AS cost_juau,
