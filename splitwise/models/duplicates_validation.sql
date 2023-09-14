@@ -27,7 +27,17 @@ WHERE
         '2273818781',
         '2231964741',
         '1886089931',
-        '2273821296'))
+        '2273821296',
+        '2622335362',
+        '2645891995',
+        '2620923949',
+        '2620925908',
+        '2530673845',
+        '2491051824',
+        '2491051871',
+        '2491051921',
+        '2316580770',
+        '2316436346'))
 GROUP BY `splitwise_final`.`month` , `splitwise_final`.`category` , `splitwise_final`.`name` , `splitwise_final`.`cost`
 HAVING (`COUNT(expense_id)` > 1)
 ORDER BY `splitwise_final`.`month` DESC , COUNT(`splitwise_final`.`expense_id`) DESC
