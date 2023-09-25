@@ -8,7 +8,7 @@ SELECT
 		null, 
         substring_index((`sel`.`category`), '- ', -1)
 	) AS `subcategory`,
-    trim(`sel`.`name`) AS `name`,
+    replace(trim(`sel`.`name`), 'juau', 'joão') AS `name`,
     `sel`.`cost` AS `cost`,
     `sel`.`cost_juau` AS `cost_juau`,
     `sel`.`cost_lana` AS `cost_lana`,
