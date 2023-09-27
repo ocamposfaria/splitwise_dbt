@@ -1,6 +1,6 @@
 # Transformação de dados do Splitwise com dbt
 
-O Splitwise é um popular aplicativo para compartilhamento de gastos financeiros entre pessoas. Este projeto contém modelos de dados e transformações implementados usando o dbt (Data Build Tool), para análise de dados capturados com a API do Splitwise, carregados num PostgreSQL.
+O Splitwise é um popular aplicativo para compartilhamento de gastos financeiros entre pessoas. Este projeto contém modelos de dados e transformações implementados usando o dbt (Data Build Tool), para análise de dados capturados com a API do Splitwise, carregados num MySQL.
 
 ## Visão Geral
 
