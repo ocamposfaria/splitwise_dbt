@@ -7,7 +7,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # Configurar as credenciais da conta de serviço
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\ocamp\Desktop\splitwise_dbt\splitwise\analyses\secrets\sinuous-concept-307423-6ac5f41270e9.json', scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\ocamp\Desktop\splitwise_dbt\splitwise\analyses\secrets\sinuous-concept.json', scope)
 
 # Autenticar e abrir a planilha
 client = gspread.authorize(credentials)
