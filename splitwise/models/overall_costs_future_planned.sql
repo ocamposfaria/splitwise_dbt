@@ -39,7 +39,9 @@ FROM
         {{ref('some_months')}}
     WHERE
         (CAST(CONCAT(some_months.month, '-01') AS DATE) >= (CURDATE() - INTERVAL 1 MONTH))) sel2) 
-UNION ALL SELECT 
+UNION ALL 
+
+SELECT 
     future_expenses.month AS month,
     future_expenses.group AS `group`,
     future_expenses.category AS category,
@@ -47,15 +49,21 @@ UNION ALL SELECT
     future_expenses.cost_lana AS cost_lana
 FROM
     bob.future_expenses_sheet future_expenses
-WHERE future_expenses.month >= substring(curdate(), 1, 7)
-UNION ALL SELECT 
+WHERE
+    future_expenses.month >= SUBSTRING(CURDATE(), 1, 7) 
+
+
+UNION ALL 
+
+
+SELECT 
     overall_costs.month AS month,
     overall_costs.group AS `group`,
     overall_costs.category AS category,
     overall_costs.cost_juau AS cost_juau,
     overall_costs.cost_lana AS cost_lana
 FROM
-    {{ref('overall_costs')}}
+    {{ ref('overall_costs') }}
 WHERE
-    ((CAST(CONCAT(overall_costs.month, '-01') AS DATE) >= CURDATE())
-        AND (overall_costs.group <> 'nossa residencia'))
+    overall_costs.month >= substr(curdate(), 1, 7) -- mes atual
+    and (category in ('compras', 'apenas joão', 'apenas lana') or `group` = 'viagens')
