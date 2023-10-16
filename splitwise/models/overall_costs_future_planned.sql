@@ -25,8 +25,8 @@ FROM
         OR (overall_costs.category = 'feira')), 'conveniencia', overall_costs.category) UNION ALL SELECT 
         'nossa residência' AS `group`,
             'ganhos' AS category,
-            -(4064.77) AS cost_juau,
-            -(3495) AS cost_lana
+            -(6300) AS cost_juau,
+            -(4087) AS cost_lana
         UNION ALL SELECT 
         'nossa residência' AS `group`,
             'ganhos extra' AS category,
