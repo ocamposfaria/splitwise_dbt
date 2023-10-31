@@ -125,7 +125,7 @@ FROM
             s.repayments_from,
             s.repayments_to
     FROM
-        {{source('mysql_sources', 'splitwise')}} s
+        {{source('api', 'splitwise')}} s
     WHERE
         ((s.deleted_by = 'None')
             AND (s.category <> 'Dinheiro extra pai juau')

@@ -1,11 +1,16 @@
 version: 2
 
 sources:
-  - name: mysql_sources
+  - name: api
     database: bob
     schema: bob
     tables:
       - name: splitwise
+
+  - name: sheets
+    database: bob
+    schema: bob
+    tables:
       - name: limits_sheet
       - name: future_expenses_sheet
       - name: earnings_sheet

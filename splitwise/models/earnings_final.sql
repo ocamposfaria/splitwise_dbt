@@ -24,4 +24,4 @@ SELECT
         ELSE 0
     END) AS percentage_lana
 FROM
-    {{ source('mysql_sources','earnings_sheet') }} earnings
+    {{ source('sheets','earnings_sheet') }} earnings
