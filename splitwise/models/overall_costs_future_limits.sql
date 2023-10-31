@@ -45,7 +45,7 @@ SELECT
     future_expenses.cost_juau AS cost_juau,
     future_expenses.cost_lana AS cost_lana
 FROM
-    bob.future_expenses_sheet future_expenses
+    {{source('mysql_sources', 'future_expenses_sheet')}} future_expenses
 WHERE
     future_expenses.month >= SUBSTRING(CURDATE(), 1, 7) 
 
