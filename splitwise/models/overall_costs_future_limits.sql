@@ -22,7 +22,7 @@ FROM
             AND (limits_final.category NOT IN ('apenas joão' , 'apenas lana'))) UNION ALL SELECT 
         'nossa residência' AS `group`,
             'ganhos' AS category,
-            -(6300) AS cost_juau,
+            -(6460) AS cost_juau,
             -(4087) AS cost_lana
         UNION ALL SELECT 
         'nossa residência' AS `group`,
