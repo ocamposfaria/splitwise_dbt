@@ -20,15 +20,20 @@ u = s.getCurrentUser()
 
 
 def recreate_expenses_with_new_percentage(list_of_expenses, percentage_juau, percentage_lana, ano_mes, delete):
-    
+
     if percentage_juau + percentage_lana != 1:
         raise Exception('A soma dos percentuais tem de ser igual a 1.')
 
     for i in range(len(list_of_expenses)):
+        print('\n \n # # # # # # # # # # # # # # # # # # # # \n \n') 
+
         try:
             expense_old = s.getExpense(list_of_expenses[i])    
+            # print(expense_old)
             repayment_value = expense_old.repayments[0].getAmount()
+            # print(repayment_value)
             repayment_from = expense_old.repayments[0].getFromUser()
+            # print(repayment_from)
 
             if repayment_from == 20401164: # juau pagou, então o repayment é from lana to juau
                 juau = ExpenseUser()
@@ -60,10 +65,13 @@ def recreate_expenses_with_new_percentage(list_of_expenses, percentage_juau, per
             expense_new.setDescription(expense_old.description)
             # expense_new.setDate(expense_old.date)
             expense_new.setDetails(ano_mes + '\n recreated with script to update past percentages')
-            
-            # pprint(vars(expense_new))
-            # pprint(vars(expense_new.users[0]))
-            # pprint(vars(expense_new.users[1]))
+            # print('gasto antigo:')
+            # pprint(vars(expense_old))
+            print('gasto novo:')
+            pprint(vars(expense_new))
+            print('detalhes de pagamento:')
+            pprint(vars(expense_new.users[0]))
+            pprint(vars(expense_new.users[1]))
             
             expense_id, error = s.createExpense(expense_new)
             if error:
@@ -71,15 +79,20 @@ def recreate_expenses_with_new_percentage(list_of_expenses, percentage_juau, per
                 raise Exception('Splitwise error')
             
             if delete:
-                s.deleteExpense(list_of_expenses[i])
+                success, errors = s.deleteExpense(list_of_expenses[i])
+                if success:
+                    print(f'({i}) ID {list_of_expenses[i]} deletado')
+                if errors:
+                    raise Exception(errors)
+
         except Exception as e:
             print(f' falha no ID: {list_of_expenses[i]}')
             raise Exception(e)
 
 
 recreate_expenses_with_new_percentage(
-    list_of_expenses = ['2316635349', '2388941968', '2388785399', '2708129704', '2736858430', '2765052087', '2765299075', '2764856938', '2765088764', '2765300857', '2764871538', '2765076124', '2765284694', '2764876936', '2765301568', '2777874777', '2778010593', '2777869677', '2778040706', '2778014977', '2777996091', '2778030120', '2778022333', '2777883565', '2777875221', '2778023867', '2778041775', '2777891504', '2777871819', '2778025064', '2778024586', '2789556768', '2789546164', '2789883343', '2789545267', '2789547629', '2789548094', '2789544310', '2789545819', '2789557400', '2789546875', '2816945922', '2816869811', '2816634823', '2816925654', '2816880761', '2816867022', '2816927341', '2816619566', '2816945188', '2816618481', '2816886863', '2816606145', '2816890407', '2816881408', '2816612673', '2816664684', '2816893567', '2816893937', '2816663541', '2816674821', '2816875412', '2816892770', '2816867899', '2816620075'], 
-    percentage_juau = 0.616522, 
-    percentage_lana = 0.383478, 
-    ano_mes = '2023-11', 
+    list_of_expenses = ['2316635561', '2388942936', '2388785634', '2708129939', '2816905638', '2816901332', '2816907327', '2816900062', '2816689204', '2816902854', '2816676094', '2816677544', '2816676708', '2841153993', '2841137328', '2841148027', '2841165942', '2841166302', '2841153072', '2841151290', '2841149207', '2841146419', '2841144760', '2842663502', '2842669656', '2842664270', '2842709802', '2842712362', '2842743369', '2842670147', '2842658910', '2842668934', '2842662313', '2842669074', '2842654664', '2842660128', '2854886541', '2854870838', '2854889500', '2854869345', '2854888140', '2854903212', '2854884119', '2854903037', '2854903462', '2854870359', '2854868015', '2854863766', '2854868889', '2854855352', '2854893174', '2854891279', '2854863256', '2854890854', '2854887654'], 
+    percentage_juau = 0.640986, 
+    percentage_lana = 0.359014,
+    ano_mes = '2023-12', 
     delete = True)
