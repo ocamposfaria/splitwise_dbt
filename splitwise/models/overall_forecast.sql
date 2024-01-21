@@ -3,7 +3,9 @@
 
 SELECT
     *,
-    'ganhos + ganhos extra' as earning_category
+    'ganhos + ganhos extra' as earning_category,
+    substring(`month`, 1, 4) as year,
+    cost_juau + cost_lana as cost_house
 FROM 
 
 (SELECT 
@@ -71,7 +73,9 @@ UNION ALL
 
 SELECT
     *,
-    'ganhos' as earning_category
+    'ganhos' as earning_category,
+    substring(`month`, 1, 4) as year,
+    cost_juau + cost_lana as cost_house
 FROM 
 
 (SELECT 
