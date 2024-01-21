@@ -6,7 +6,7 @@ SELECT
     SUM(cost_juau),
     SUM(cost_lana)
 FROM
-    splitwise_final
+    {{ref("splitwise_final")}}
 WHERE
     category LIKE '%ganhos%'
         AND name LIKE '%leo%'
