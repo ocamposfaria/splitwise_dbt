@@ -11,8 +11,8 @@ FROM
         `overall_costs`.`group` AS `group`,
             IF(((`overall_costs`.`category` = 'padaria')
                 OR (`overall_costs`.`category` = 'feira')), 'conveniencia', `overall_costs`.`category`) AS `category`,
-            (SUM(`overall_costs`.`cost_juau`) / 1) AS `cost_juau`,
-            (SUM(`overall_costs`.`cost_lana`) / 1) AS `cost_lana`
+            (SUM(`overall_costs`.`cost_juau`) / 2) AS `cost_juau`,
+            (SUM(`overall_costs`.`cost_lana`) / 2) AS `cost_lana`
     FROM
         {{ref('overall_costs')}}
     WHERE
@@ -20,7 +20,7 @@ FROM
             AND (`overall_costs`.`group` NOT IN ('viagens' , 'compras', 'apenas joão', 'apenas lana'))
             AND (overall_costs.category NOT IN ('ganhos' , 'ganhos extra'))
             AND (CAST(CONCAT(overall_costs.month, '-01') AS DATE) <= (CURDATE() - INTERVAL 1 MONTH))
-            AND (CAST(CONCAT(overall_costs.month, '-01') AS DATE) > (CURDATE() - INTERVAL 2 MONTH)))
+            AND (CAST(CONCAT(overall_costs.month, '-01') AS DATE) > (CURDATE() - INTERVAL 3 MONTH)))
     GROUP BY overall_costs.group , IF(((overall_costs.category = 'padaria')
         OR (overall_costs.category = 'feira')), 'conveniencia', overall_costs.category) UNION ALL SELECT 
         'nossa residência' AS `group`,
