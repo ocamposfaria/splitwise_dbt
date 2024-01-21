@@ -14,6 +14,7 @@ WHERE
         'outros',
         'transporte',
         'alimentação',
+        'bem-estar',
         'feira',
         'padaria',
         'assinaturas',
