@@ -109,7 +109,7 @@ def get_splitwise_expenses(group_id, group_name, limit):
     return df
 
 
-df_1 = get_splitwise_expenses(33823062, 'Nossa Residência', 500)
+df_1 = get_splitwise_expenses(33823062, 'Nossa Residência', 100)
 df_2 = get_splitwise_expenses(34137144, 'VR', 100)
 df_3 = get_splitwise_expenses(35336773, 'just me', 100)
 df_4 = get_splitwise_expenses(40055224, 'apenas lana', 100)
