@@ -82,19 +82,23 @@ try:
                 INSERT INTO bob.limits_sheet (
                 `category`,
                 `cost`,
+                `cost_extra_week`,
                 `cost_juau`,
                 `cost_lana`,
                 `version_month_from`,
-                `version_month_to`
+                `version_month_to`,
+                `detail`
                 )
 
                 VALUES (
                 '{df['category'][i]}',
                 '{df['cost'][i]}',
+                '{df['cost_extra_week'][i]}',
                 '{df['cost_juau'][i]}',
                 '{df['cost_lana'][i]}',
                 '{df['version_month_from'][i]}',
-                '{df['version_month_to'][i]}'
+                '{df['version_month_to'][i]}',
+                '{df['detail'][i]}'
                 )                
                 """
         
