@@ -1,144 +1,45 @@
-{{ config(materialized='view') }}
+WITH
 
+segmentar_ganhos AS (
+SELECT *, substring(month, 1, 4) as year, cost_juau + cost_lana as cost_house, 'future_estimated' as future_mode FROM {{ref('overall_costs')}} WHERE `month` < substring(curdate() /* - interval 2 month*/, 1, 7)  union all
+SELECT *, substring(month, 1, 4) as year, cost_juau + cost_lana as cost_house, 'future_estimated' as future_mode FROM {{ref('overall_costs_future_estimated')}} 
+	union all
+SELECT *, substring(month, 1, 4) as year, cost_juau + cost_lana as cost_house, 'future_planned' as future_mode FROM {{ref('overall_costs')}} WHERE `month` < substring(curdate() /* - interval 2 month*/, 1, 7) union all
+SELECT *, substring(month, 1, 4) as year, cost_juau + cost_lana as cost_house, 'future_planned' as future_mode FROM {{ref('overall_costs_future_planned')}}
+	union all
+SELECT *, substring(month, 1, 4) as year, cost_juau + cost_lana as cost_house, 'future_limited' as future_mode FROM {{ref('overall_costs')}} WHERE `month` < substring( curdate() /* - interval 2 month*/, 1, 7) union all
+SELECT *, substring(month, 1, 4) as year, cost_juau + cost_lana as cost_house, 'future_limited' as future_mode FROM {{ref('overall_costs_future_limits')}}
+),
 
-SELECT
-    *,
-    'ganhos + ganhos extra' as earning_category,
-    substring(`month`, 1, 4) as year,
-    cost_juau + cost_lana as cost_house
-FROM 
+overall_forecast_without_savings AS (
 
-(SELECT 
-    `overall_costs`.`month` AS `month`,
-    `overall_costs`.`group` AS `group`,
-    `overall_costs`.`category` AS `category`,
-    `overall_costs`.`cost_juau` AS `cost_juau`,
-    `overall_costs`.`cost_lana` AS `cost_lana`,
-    'future_estimated' AS `future_mode`
-FROM
-    {{ref('overall_costs')}}
-WHERE
-    (CAST(CONCAT(`overall_costs`.`month`, '-01') AS DATE) <= (CURDATE() - INTERVAL 1 MONTH)) 
-UNION ALL SELECT 
-    `overall_costs_future_estimated`.`month` AS `month`,
-    `overall_costs_future_estimated`.`group` AS `group`,
-    `overall_costs_future_estimated`.`category` AS `category`,
-    `overall_costs_future_estimated`.`cost_juau` AS `cost_juau`,
-    `overall_costs_future_estimated`.`cost_lana` AS `cost_lana`,
-    'future_estimated' AS `future_mode`
-FROM
-    {{ref('overall_costs_future_estimated')}}
-UNION ALL SELECT 
-    `overall_costs`.`month` AS `month`,
-    `overall_costs`.`group` AS `group`,
-    `overall_costs`.`category` AS `category`,
-    `overall_costs`.`cost_juau` AS `cost_juau`,
-    `overall_costs`.`cost_lana` AS `cost_lana`,
-    'future_planned' AS `future_mode`
-FROM
-    {{ref('overall_costs')}}
-WHERE
-    (CAST(CONCAT(`overall_costs`.`month`, '-01') AS DATE) <= (CURDATE() - INTERVAL 1 MONTH)) 
-UNION ALL SELECT 
-    `overall_costs_future_planned`.`month` AS `month`,
-    `overall_costs_future_planned`.`group` AS `group`,
-    `overall_costs_future_planned`.`category` AS `category`,
-    `overall_costs_future_planned`.`cost_juau` AS `cost_juau`,
-    `overall_costs_future_planned`.`cost_lana` AS `cost_lana`,
-    'future_planned' AS `future_mode`
-FROM
-    {{ref('overall_costs_future_planned')}}
-UNION ALL SELECT 
-    `overall_costs`.`month` AS `month`,
-    `overall_costs`.`group` AS `group`,
-    `overall_costs`.`category` AS `category`,
-    `overall_costs`.`cost_juau` AS `cost_juau`,
-    `overall_costs`.`cost_lana` AS `cost_lana`,
-    'future_limited' AS `future_mode`
-FROM
-    {{ref('overall_costs')}}
-WHERE
-    (CAST(CONCAT(`overall_costs`.`month`, '-01') AS DATE) <= (CURDATE() - INTERVAL 1 MONTH)) 
-UNION ALL SELECT 
-    `overall_costs_future_limits`.`month` AS `month`,
-    `overall_costs_future_limits`.`group` AS `group`,
-    `overall_costs_future_limits`.`category` AS `category`,
-    `overall_costs_future_limits`.`cost_juau` AS `cost_juau`,
-    `overall_costs_future_limits`.`cost_lana` AS `cost_lana`,
-    'future_limited' AS `future_mode`
-FROM
-    {{ref('overall_costs_future_limits')}}) first_earning_category
+SELECT `month`, `group`, category, cost_juau, cost_lana, future_mode, 'ganhos' as earning_category, year, cost_house
+FROM segmentar_ganhos
+WHERE category <> 'ganhos extra'
 
-UNION ALL
+	union all 
 
-SELECT
-    *,
-    'ganhos' as earning_category,
-    substring(`month`, 1, 4) as year,
-    cost_juau + cost_lana as cost_house
-FROM 
+SELECT `month`, `group`, category, cost_juau, cost_lana, future_mode, 'ganhos + ganhos extra' as earning_category, year, cost_house
+FROM segmentar_ganhos
 
-(SELECT 
-    `overall_costs`.`month` AS `month`,
-    `overall_costs`.`group` AS `group`,
-    `overall_costs`.`category` AS `category`,
-    `overall_costs`.`cost_juau` AS `cost_juau`,
-    `overall_costs`.`cost_lana` AS `cost_lana`,
-    'future_estimated' AS `future_mode`
-FROM
-    {{ref('overall_costs')}}
-WHERE
-    (CAST(CONCAT(`overall_costs`.`month`, '-01') AS DATE) <= (CURDATE() - INTERVAL 1 MONTH)) 
-UNION ALL SELECT 
-    `overall_costs_future_estimated`.`month` AS `month`,
-    `overall_costs_future_estimated`.`group` AS `group`,
-    `overall_costs_future_estimated`.`category` AS `category`,
-    `overall_costs_future_estimated`.`cost_juau` AS `cost_juau`,
-    `overall_costs_future_estimated`.`cost_lana` AS `cost_lana`,
-    'future_estimated' AS `future_mode`
-FROM
-    {{ref('overall_costs_future_estimated')}}
-UNION ALL SELECT 
-    `overall_costs`.`month` AS `month`,
-    `overall_costs`.`group` AS `group`,
-    `overall_costs`.`category` AS `category`,
-    `overall_costs`.`cost_juau` AS `cost_juau`,
-    `overall_costs`.`cost_lana` AS `cost_lana`,
-    'future_planned' AS `future_mode`
-FROM
-    {{ref('overall_costs')}}
-WHERE
-    (CAST(CONCAT(`overall_costs`.`month`, '-01') AS DATE) <= (CURDATE() - INTERVAL 1 MONTH)) 
-UNION ALL SELECT 
-    `overall_costs_future_planned`.`month` AS `month`,
-    `overall_costs_future_planned`.`group` AS `group`,
-    `overall_costs_future_planned`.`category` AS `category`,
-    `overall_costs_future_planned`.`cost_juau` AS `cost_juau`,
-    `overall_costs_future_planned`.`cost_lana` AS `cost_lana`,
-    'future_planned' AS `future_mode`
-FROM
-    {{ref('overall_costs_future_planned')}}
-UNION ALL SELECT 
-    `overall_costs`.`month` AS `month`,
-    `overall_costs`.`group` AS `group`,
-    `overall_costs`.`category` AS `category`,
-    `overall_costs`.`cost_juau` AS `cost_juau`,
-    `overall_costs`.`cost_lana` AS `cost_lana`,
-    'future_limited' AS `future_mode`
-FROM
-    {{ref('overall_costs')}}
-WHERE
-    (CAST(CONCAT(`overall_costs`.`month`, '-01') AS DATE) <= (CURDATE() - INTERVAL 1 MONTH)) 
-UNION ALL SELECT 
-    `overall_costs_future_limits`.`month` AS `month`,
-    `overall_costs_future_limits`.`group` AS `group`,
-    `overall_costs_future_limits`.`category` AS `category`,
-    `overall_costs_future_limits`.`cost_juau` AS `cost_juau`,
-    `overall_costs_future_limits`.`cost_lana` AS `cost_lana`,
-    'future_limited' AS `future_mode`
-FROM
-    {{ref('overall_costs_future_limits')}}
-) second_earning_category
+)
 
-WHERE
-    category <> 'ganhos extra'
+SELECT * FROM overall_forecast_without_savings
+
+	union all
+
+SELECT 
+    month,
+    'poupança' AS `group`,
+    'poupança' AS category,
+    - SUM(cost_juau) as cost_juau,
+    - SUM(cost_lana) as cost_lana,
+    future_mode,
+    earning_category,
+    year,
+    - SUM(cost_house) as cost_house
+FROM
+
+    overall_forecast_without_savings
+
+GROUP BY month , future_mode , earning_category , year
