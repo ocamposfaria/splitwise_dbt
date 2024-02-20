@@ -12,5 +12,6 @@ FROM
 LEFT JOIN {{ref('monthly_percentages')}} mp ON mp.`month` = sf.`month`
 WHERE
     `source` = 'Nossa Residencia'
-    and sf.percentage_juau - mp.percentage_juau*100 >= 0.5
+    and abs(sf.percentage_juau - mp.percentage_juau*100) >= 0.5
     and sf.month > '2023-03'
+    and sf.category <> 'compras'
