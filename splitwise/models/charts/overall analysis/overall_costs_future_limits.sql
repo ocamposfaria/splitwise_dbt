@@ -1,39 +1,26 @@
 WITH
 
-limites_nossa_residencia AS (
-	SELECT 
-        'nossa residência' AS `group`,
-		limits_final.category AS category,
-		limits_final.limit_juau AS cost_juau,
-		limits_final.limit_lana AS cost_lana
-    FROM
-        {{ref('limits_final')}} 
-    WHERE
-        limits_final.month IN (SELECT MAX(limits_final.month) FROM {{ref('limits_final')}})
+limites_futuros AS (
+	SELECT
+		'nossa residência' as `group`,
+		category,
+		limit_juau as cost_juau,
+		limit_lana as cost_lana,
+		month
+	FROM {{ref('limits_final')}}
+	WHERE month >= substring(curdate(), 1, 7)
 ),
 
 ganhos_previstos AS (
-	SELECT 
-		'ganhos' AS `group`,
-		'ganhos' AS category,
-		-(6460) AS cost_juau,
-		-(4087) AS cost_lana
-    union all 
-	SELECT 
-		'ganhos' AS `group`,
-		'ganhos extra' AS category,
-		-(0) AS cost_juau,
-		-(0) AS cost_lana
+	SELECT
+		'ganhos',
+		category,
+		cost_juau,
+		cost_lana,
+		month
+	FROM {{ref('earnings_final')}}
+	WHERE month >= substring(curdate(), 1, 7)
     ),
-
-meses_para_estimativa AS (
-SELECT 
-	some_months.month AS month
-FROM
-	{{ref('some_months')}}
-WHERE
-	(CAST(CONCAT(some_months.month, '-01') AS DATE) >= (CURDATE() - INTERVAL 1 MONTH))
-),
 
 gastos_futuros AS (
 SELECT 
@@ -43,12 +30,12 @@ SELECT
     future_expenses.cost_lana AS cost_lana,
     future_expenses.month AS month
 FROM
-    {{source('sheets', 'future_expenses_sheet')}} future_expenses
+    `bob`.`future_expenses_sheet` future_expenses
 WHERE
     future_expenses.month >= SUBSTRING(CURDATE(), 1, 7)
 ),
 
-compras_mes_atual AS (
+compras_e_viagens_mes_atual_e_futuro AS (
 SELECT 
     overall_costs.group AS `group`,
     overall_costs.category AS category,
@@ -62,12 +49,7 @@ WHERE
     and `group` in ('compras', 'viagens')
 )
 
-SELECT
-	*
-FROM
-(SELECT * FROM limites_nossa_residencia union all
-SELECT * FROM ganhos_previstos) sq
-JOIN meses_para_estimativa
-
+SELECT * FROM limites_futuros
+union all SELECT * FROM ganhos_previstos
 union all SELECT * FROM gastos_futuros
-union all SELECT * FROM compras_mes_atual
+union all SELECT * FROM compras_e_viagens_mes_atual_e_futuro

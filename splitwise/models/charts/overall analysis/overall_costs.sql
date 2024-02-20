@@ -28,6 +28,7 @@ nossa_residencia AS (SELECT
 			'bem-estar',
 			'feira',
 			'padaria',
+			'presentes',
 			'assinaturas',
 			'conveniencia',
 			'apenas joão',

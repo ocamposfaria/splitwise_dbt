@@ -12,6 +12,8 @@ JOIN {{ref('some_months')}} sm ON sm.month >= version_month_from and sm.month <=
 JOIN {{ref('monthly_percentages')}} mp on sm.month = mp.month
 LEFT JOIN {{ref('five_weeks_months')}} fw ON sm.month = fw.month 
 
-WHERE concat(sm.month, '-01') <= curdate()
+union all 
 
-ORDER BY sm.month DESC
+SELECT * FROM {{ref('gifts_final')}}
+
+ORDER BY `month` DESC
