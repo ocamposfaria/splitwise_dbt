@@ -6,7 +6,7 @@ O Splitwise é um popular aplicativo para compartilhamento de gastos financeiros
 
 O objetivo deste projeto é fornecer um pipeline de dados confiável e escalável para análise de gastos. Ele utiliza o dbt para transformar dados brutos em um formato estruturado, pronto para análise. Abaixo, uma preview da lineage do pipeline:
 
-![alt text for screen readers](/dbt-dag.png "Text to show on mouseover")
+![alt text for screen readers](/dbt-dag.png)
 
 ## Pré-requisitos
 
