@@ -22,7 +22,7 @@ u = s.getCurrentUser()
 def recreate_expenses_with_new_percentage(list_of_expenses, percentage_juau, percentage_lana, ano_mes, delete):
 
     if percentage_juau + percentage_lana != 1:
-        raise Exception('A soma dos percentuais tem de ser igual a 1.')
+        raise Exception(f'A soma dos percentuais tem de ser igual a 1, mas recebi {percentage_juau + percentage_lana}.')
 
     for i in range(len(list_of_expenses)):
         print('\n \n # # # # # # # # # # # # # # # # # # # # \n \n') 
@@ -91,8 +91,8 @@ def recreate_expenses_with_new_percentage(list_of_expenses, percentage_juau, per
 
 
 recreate_expenses_with_new_percentage(
-    list_of_expenses = ['2316635561', '2388942936', '2388785634', '2708129939', '2816905638', '2816901332', '2816907327', '2816900062', '2816689204', '2816902854', '2816676094', '2816677544', '2816676708', '2841153993', '2841137328', '2841148027', '2841165942', '2841166302', '2841153072', '2841151290', '2841149207', '2841146419', '2841144760', '2842663502', '2842669656', '2842664270', '2842709802', '2842712362', '2842743369', '2842670147', '2842658910', '2842668934', '2842662313', '2842669074', '2842654664', '2842660128', '2854886541', '2854870838', '2854889500', '2854869345', '2854888140', '2854903212', '2854884119', '2854903037', '2854903462', '2854870359', '2854868015', '2854863766', '2854868889', '2854855352', '2854893174', '2854891279', '2854863256', '2854890854', '2854887654'], 
-    percentage_juau = 0.640986, 
-    percentage_lana = 0.359014,
-    ano_mes = '2023-12', 
+    list_of_expenses = ['2355272455'], 
+    percentage_juau = 0.501, 
+    percentage_lana = 0.499,
+    ano_mes = '2023-04', 
     delete = True)
