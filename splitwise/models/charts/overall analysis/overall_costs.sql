@@ -37,7 +37,7 @@ nossa_residencia AS (SELECT
     
 compras AS (SELECT 
 		'compras' AS `group`,
-		'compras' AS category,
+		splitwise_final.subcategory AS category,
 		SUM(splitwise_final.cost_juau) AS cost_juau,
 		SUM(splitwise_final.cost_lana) AS cost_lana,
 		splitwise_final.month AS month
