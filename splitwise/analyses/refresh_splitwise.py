@@ -109,11 +109,11 @@ def get_splitwise_expenses(group_id, group_name, limit):
     return df
 
 
-df_1 = get_splitwise_expenses(33823062, 'Nossa Residência', 400)
-df_2 = get_splitwise_expenses(34137144, 'VR', 100)
+df_1 = get_splitwise_expenses(33823062, 'Nossa Residência', 2000)
+# df_2 = get_splitwise_expenses(34137144, 'VR', 100)
 df_3 = get_splitwise_expenses(35336773, 'just me', 100)
 df_4 = get_splitwise_expenses(40055224, 'apenas lana', 100)
-df_5 = get_splitwise_expenses(62599381, 'viagem chapada 2024', 200)
+# df_5 = get_splitwise_expenses(62599381, 'viagem chapada 2024', 200)
 # df_5 = get_splitwise_expenses(57014599, 'viagem chapada 2023', 100)
 # df_4 = get_splitwise_expenses(37823696, 'Harry Styles', 15)
 # df_4 = get_splitwise_expenses(40055224, 'apenas lana', 10)
@@ -122,7 +122,7 @@ df_5 = get_splitwise_expenses(62599381, 'viagem chapada 2024', 200)
 # df_5 = get_splitwise_expenses(39698610, 'Lollapalooza 2023', 15)
 
 
-df = pd.concat([df_1, df_2, df_3, df_4, df_5], ignore_index=True)
+df = pd.concat([df_1, df_3, df_4], ignore_index=True)
 
 # ### Getting month
 
@@ -194,9 +194,10 @@ try:
                 repayments_from = '{df['repayments_from'][i]}',
                 repayments_to = '{df['repayments_to'][i]}',
                 category = '{df['category'][i]}',
-                source = '{df['source'][i]}'                
+                source = '{df['source'][i]}',
+                details = '{df['details'][i]}'     
                 """
-        # não dou update nos campos 'month' e 'details' para preservar o mês que ele foi criado
+        # não dou update nos campos 'month' para preservar o mês que ele foi criado
         
         cursor.execute(query)
 
