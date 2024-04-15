@@ -1,0 +1,58 @@
+# splitwise:
+#   outputs:
+# 
+#     dev:
+#       type: postgres
+#       host: localhost
+#       port: 5432
+#       user: postgres
+#       pass: admin
+#       dbname: postgres
+#       schema: bob
+# 
+#     prod:
+#       type: postgres
+#       host: localhost
+#       port: 5432
+#       user: postgres
+#       pass: admin
+#       dbname: postgres
+#       schema: bob
+# 
+#   target: dev
+
+cnp_dbt:
+  outputs:
+
+    dev:
+      type: postgres
+      host: localhost
+      port: 5432
+      user: postgres
+      pass: admin
+      dbname: postgres
+      schema: cnp
+
+    prod:
+      type: postgres
+      host: localhost
+      port: 5432
+      user: postgres
+      pass: admin
+      dbname: postgres
+      schema: cnp
+
+  target: dev
+
+splitwise:
+  target: dev
+  outputs:
+    dev:
+      type: mysql
+      server: 127.0.0.1
+      port: 3306  # optional
+      database: bob
+      schema: bob
+      username: ocamp
+      password: oldnumber7.Tennessee
+      driver: MySQL ODBC 8.0 ANSI Driver
