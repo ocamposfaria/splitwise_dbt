@@ -62,7 +62,14 @@ WHERE
         '2897079362',
         '2877025467',
         '2888555574',
-        '2876976554'))
+        '2876976554',
+        '2947575296',
+        '2970235732',
+        '3008141865',
+        '3036187257',
+        '3008149113',
+        '3065787026',
+        '3065781541'))
 GROUP BY `splitwise_final`.`month` , `splitwise_final`.`category` , `splitwise_final`.`name` , `splitwise_final`.`cost`
 HAVING (`COUNT(expense_id)` > 1)
 ORDER BY `splitwise_final`.`month` DESC , COUNT(`splitwise_final`.`expense_id`) DESC
