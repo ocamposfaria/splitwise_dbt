@@ -42,8 +42,8 @@ estimativa_compras AS (
 		`overall_costs`.`group` AS `group`,
 		IF(((`overall_costs`.`category` = 'padaria')
 			OR (`overall_costs`.`category` = 'feira')), 'conveniencia', `overall_costs`.`category`) AS `category`,
-		AVG(`overall_costs`.`cost_juau`) AS `cost_juau`,
-		AVG(`overall_costs`.`cost_lana`) AS `cost_lana`
+		sum(`overall_costs`.`cost_juau`)/12 AS `cost_juau`,
+		sum(`overall_costs`.`cost_lana`)/12 AS `cost_lana`
 	FROM
 		{{ref('overall_costs')}}
 	WHERE
